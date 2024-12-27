@@ -10,7 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
+import com.example.food2fork.android.presentation.recipe_list.RecipeListScreen
 
 
 @Composable
@@ -20,13 +20,12 @@ val navController = rememberNavController()
         composable(route = Screen.RecipeList.route){
             //navBackStackEntry->to persist the state in navbackStack
             navBackStackEntry ->
-            Column {
-                Text("Recipe List")
-                Divider()
-                Button(onClick = { navController.navigate(Screen.RecipeDetail.route) }) {
-                    Text("RecipeList")
+            RecipeListScreen(
+                onSelectedRecipe = {recipeID ->
+                    navController.navigate(Screen.RecipeDetail.route + "/$recipeID")
                 }
-            }
+            )
+
 
         }
 
@@ -34,7 +33,7 @@ val navController = rememberNavController()
         composable(route = Screen.RecipeDetail.route){
             //navBackStackEntry->to persist the state in navbackStack
                 navBackStackEntry ->
-            Text("RecipeDetailScreen")
+
 
         }
     }
