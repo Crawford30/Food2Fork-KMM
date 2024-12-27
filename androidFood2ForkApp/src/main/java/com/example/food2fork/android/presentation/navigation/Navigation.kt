@@ -7,9 +7,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.food2fork.android.presentation.recipe_detail.RecipeDetailScreen
 import com.example.food2fork.android.presentation.recipe_list.RecipeListScreen
 
@@ -18,7 +20,9 @@ import com.example.food2fork.android.presentation.recipe_list.RecipeListScreen
 fun Navigation(){
 val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.RecipeList.route){
-        composable(route = Screen.RecipeList.route){
+        composable(
+            route = Screen.RecipeList.route
+        ){
             //navBackStackEntry->to persist the state in navbackStack
             navBackStackEntry ->
             RecipeListScreen(
@@ -31,7 +35,12 @@ val navController = rememberNavController()
         }
 
 
-        composable(route = Screen.RecipeDetail.route + "/{recipeID}"){
+        composable(
+            route = Screen.RecipeDetail.route + "/{recipeID}",
+            arguments = listOf(navArgument("recipeID"){
+                type = NavType.IntType
+            })
+        ){
             //composable(route = Screen.RecipeDetail.route + "/{recipeID}"){ should be the same as
             // RecipeDetailScreen(recipeID = navBackStackEntry.arguments?.get("recipeID"))
 
